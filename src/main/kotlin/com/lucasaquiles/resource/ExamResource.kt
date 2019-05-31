@@ -7,13 +7,14 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Produces
 import java.lang.reflect.Proxy
 
-@Controller("exam")
+@Controller("/exam")
 class ExamResource{
 
     @Post("/")
     @Produces(MediaType.APPLICATION_JSON)
     fun index(): ExamResource {
-        
-        return ExamResource();
+
+        val examResource = ExamResource()
+        return examResource;
     }
 }
