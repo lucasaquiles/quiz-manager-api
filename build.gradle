@@ -9,7 +9,7 @@ plugins {
 apply plugin:"application"
 
 version "0.1"
-group "com.lucasaquies"
+group "com.lucasaquiles"
 
 repositories {
     mavenLocal()
@@ -49,7 +49,7 @@ shadowJar {
 
 run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
 
-mainClassName = "com.lucasaquies.Application"
+mainClassName = "com.lucasaquiles.Application"
 
 test {
     useJUnitPlatform()
