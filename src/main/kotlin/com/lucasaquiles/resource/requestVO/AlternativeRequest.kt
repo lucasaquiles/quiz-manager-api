@@ -1,4 +1,4 @@
-package com.lucasaquiles.requestVO
+package com.lucasaquiles.resource.requestVO
 
 import java.math.BigDecimal
 import javax.validation.constraints.NotBlank
