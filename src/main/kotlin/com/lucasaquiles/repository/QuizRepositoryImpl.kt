@@ -2,16 +2,15 @@ package com.lucasaquiles.repository
 
 import com.lucasaquiles.domain.Quiz
 import io.micronaut.configuration.hibernate.jpa.scope.CurrentSession
-import io.micronaut.runtime.ApplicationConfiguration
 import io.micronaut.spring.tx.annotation.Transactional
+import javax.inject.Singleton
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-class QuizRepositoryImpl(
+@Singleton
+open class QuizRepositoryImpl(
         @param:CurrentSession @field:PersistenceContext
-        private val entityManager: EntityManager,
-        private val applicationConfiguration: ApplicationConfiguration
-) : QuizRepository {
+        private val entityManager: EntityManager) : QuizRepository {
 
     override fun findById(id: Long): Quiz? {
 
@@ -28,6 +27,4 @@ class QuizRepositoryImpl(
     override fun findAll(): List<Quiz> {
         return emptyList();
     }
-
-
 }

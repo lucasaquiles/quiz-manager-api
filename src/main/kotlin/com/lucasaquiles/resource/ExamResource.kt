@@ -15,6 +15,7 @@ class ExamResource{
     fun index(): ExamResource {
 
         val examResource = ExamResource()
+
         return examResource;
     }
 }

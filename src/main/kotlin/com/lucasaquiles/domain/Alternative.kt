@@ -3,7 +3,6 @@ package com.lucasaquiles.domain
 import java.math.BigDecimal
 import javax.persistence.*
 
-
 @Entity
 class Alternative(
 
