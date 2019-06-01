@@ -16,6 +16,7 @@ group "com.lucasaquiles"
 repositories {
     mavenLocal()
     mavenCentral()
+    maven { url "https://dl.bintray.com/spekframework/spek-dev" }
     maven { url "https://jcenter.bintray.com" }
 }
 
@@ -66,7 +67,9 @@ run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
 mainClassName = "com.lucasaquiles.Application"
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        includeEngines 'spek2'
+    }
 }
 
 allOpen {
@@ -80,6 +83,8 @@ compileKotlin {
         javaParameters = true
     }
 }
+
+
 
 compileTestKotlin {
     kotlinOptions {

@@ -3,9 +3,8 @@ package com.lucasaquiles.resource
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 object QuizResourceSpec : Spek({
 
@@ -16,7 +15,8 @@ object QuizResourceSpec : Spek({
         it("faz alguma coisa"){
             val ids = ArrayList<Long?>();
 
-            
+
+
         }
 
 
