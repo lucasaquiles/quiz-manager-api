@@ -16,13 +16,11 @@ object QuizResourceSpec : Spek({
 
     describe("suite test for quiz resource"){
         val embeddedServer = ApplicationContext.run(EmbeddedServer::class.java)
-        val client = HttpClient.create(embeddedServer.url);
+        val client = HttpClient.create(embeddedServer.url)
 
         it("post request"){
-            val ids = ArrayList<Long?>();
 
-
-            val quizPostRequest = QuizPostRequest("teste", HashSet<AlternativeRequest>(), BigDecimal.ZERO)
+            val quizPostRequest = QuizPostRequest("do you know what is this?", HashSet<AlternativeRequest>(), BigDecimal.ZERO)
             var request: HttpRequest<QuizPostRequest> = HttpRequest.POST("/quiz", quizPostRequest)
 
             val response = client.toBlocking().exchange<QuizPostRequest, Any>(request)
