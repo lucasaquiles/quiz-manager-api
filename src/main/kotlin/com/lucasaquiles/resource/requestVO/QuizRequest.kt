@@ -1,13 +1,12 @@
 package com.lucasaquiles.resource.requestVO
 
-import com.lucasaquiles.domain.Alternative
 import java.math.BigDecimal
 import javax.validation.constraints.NotBlank
 
 data class QuizPostRequest(
         @NotBlank
         val title: String,
-        val alternatives: Set<Alternative>,
+        val alternatives: Set<AlternativeRequest>,
         @NotBlank
         val minScore: BigDecimal
 )
