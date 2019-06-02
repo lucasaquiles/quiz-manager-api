@@ -1,7 +1,10 @@
 package com.lucasaquiles
 
 import io.micronaut.runtime.Micronaut
+import io.swagger.v3.oas.annotations.OpenAPIDefinition
 
+
+@OpenAPIDefinition
 object Application {
 
     @JvmStatic

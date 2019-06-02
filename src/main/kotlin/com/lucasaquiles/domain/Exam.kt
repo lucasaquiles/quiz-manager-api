@@ -14,7 +14,7 @@ class Exam(
 
         @JsonIgnore
         @OneToMany(mappedBy = "exam")
-        val quizes: ArrayList<Any>,
+        val quizes: MutableList<Quiz>,
         val date: Date,
         val validDate: Date,
         val active: Boolean
