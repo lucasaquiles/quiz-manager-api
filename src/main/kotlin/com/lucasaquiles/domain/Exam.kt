@@ -3,7 +3,6 @@ package com.lucasaquiles.domain
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.*
 import javax.persistence.*
-import kotlin.collections.ArrayList
 
 @Entity
 class Exam(
