@@ -13,4 +13,8 @@ class Alternative(
         @ManyToOne
         val quiz: Quiz,
         val score: BigDecimal
-)
+){
+
+        constructor(alternative: String, quiz: Quiz, score:BigDecimal) : this(0, alternative, quiz, score);
+
+}

@@ -9,8 +9,8 @@ import javax.persistence.PersistenceContext
 
 @Singleton
 open class QuizRepositoryImpl(
-        @param:CurrentSession @field:PersistenceContext
-        private val entityManager: EntityManager) : QuizRepository {
+        @param: CurrentSession @field: PersistenceContext
+        private val entityManager: EntityManager) : Repository<Quiz> {
 
     override fun findById(id: Long): Quiz? {
 
@@ -18,9 +18,9 @@ open class QuizRepositoryImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun save(quiz: Quiz): Quiz {
-        entityManager.persist(quiz)
-        return quiz;
+    override fun save(obj: Quiz): Quiz {
+        entityManager.persist(obj)
+        return obj;
     }
 
     @Transactional(readOnly = true)

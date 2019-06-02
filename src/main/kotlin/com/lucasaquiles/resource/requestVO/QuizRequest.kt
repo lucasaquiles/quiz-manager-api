@@ -11,6 +11,7 @@ data class QuizPostRequest(
         val minScore: BigDecimal
 )
 
+
 data class QuizUpdateRequest(
         val id: Long,
         val title: String,
