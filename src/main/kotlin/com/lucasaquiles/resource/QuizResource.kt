@@ -13,7 +13,9 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.validation.Validated
 import org.jetbrains.annotations.NotNull
+import java.util.*
 import javax.validation.Valid
+import kotlin.collections.ArrayList
 
 @Validated
 @Controller("/quiz")
@@ -26,7 +28,8 @@ class QuizResource(protected val quizRepository: Repository<Quiz>){
     @Post("/")
     fun save(@Body @Valid quizRequest: QuizPostRequest) : HttpResponse<Quiz>{
 
-        val quiz = Quiz(quizRequest.title ,  quizRequest.minScore, Exam(0, ArrayList()))
+        val exam = Exam(0, ArrayList(), Date(), Date(), true)
+        val quiz = Quiz(quizRequest.title ,  quizRequest.minScore, exam)
         quizRepository.save(quiz)
 
         return HttpResponse.created(quiz)

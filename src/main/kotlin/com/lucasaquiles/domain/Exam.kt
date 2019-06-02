@@ -1,7 +1,9 @@
 package com.lucasaquiles.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.util.*
 import javax.persistence.*
+import kotlin.collections.ArrayList
 
 @Entity
 class Exam(
@@ -12,5 +14,8 @@ class Exam(
 
         @JsonIgnore
         @OneToMany(mappedBy = "exam")
-        val quizes: List<Quiz>
+        val quizes: ArrayList<Any>,
+        val date: Date,
+        val validDate: Date,
+        val active: Boolean
 )
