@@ -30,9 +30,8 @@ class QuizResource(protected val quizRepository: Repository<Quiz>){
 
         val exam = Exam(0, ArrayList(), Date(), Date(), true)
         val quiz = Quiz(quizRequest.title ,  quizRequest.minScore, exam)
-        quizRepository.save(quiz)
 
-        return HttpResponse.created(quiz)
+        return HttpResponse.created(quizRepository.save(quiz))
     }
 
     @Post("/quiz/{id}/alternative")

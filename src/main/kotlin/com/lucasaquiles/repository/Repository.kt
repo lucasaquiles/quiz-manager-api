@@ -1,6 +1,5 @@
 package com.lucasaquiles.repository
 
-import com.lucasaquiles.domain.Quiz
 import javax.validation.constraints.NotBlank
 
 interface Repository<T> {
