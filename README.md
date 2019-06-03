@@ -1,3 +1,6 @@
+ Micronaut App using kotlin, Spek, JPA, Open API
+ 
+
 ```
 ./gradlew run
 ```
