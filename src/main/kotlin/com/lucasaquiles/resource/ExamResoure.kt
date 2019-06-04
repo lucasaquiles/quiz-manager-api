@@ -36,13 +36,13 @@ class ExamResoure (protected val examRepository: ExamRepositoryImpl) {
     }
 
     @Post("/")
-    fun save(@Body exam:ExamPostRequest) : ExamPostRequest{
+    fun save(@Body exam:ExamPostRequest) : HttpResponse<ExamPostRequest>{
 
         val examObj = Exam(0, ArrayList(), exam.date, exam.validDat, exam.active)
 
         examRepository.save(examObj);
 
-        return exam;
+        return HttpResponse.created(exam);
     }
 
     @Post("/exam/{id}/quiz")

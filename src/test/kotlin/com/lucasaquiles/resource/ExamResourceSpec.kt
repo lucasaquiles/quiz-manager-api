@@ -34,7 +34,7 @@ class ExamResourceSpec : Spek( {
 
             val response = client.toBlocking().exchange<ExamPostRequest, Any>(request)
 
-            assertEquals(HttpStatus.OK, response.status)
+            assertEquals(HttpStatus.CREATED, response.status)
         }
 
         it("get all exams"){
