@@ -7,6 +7,7 @@ import com.lucasaquiles.resource.requestVO.ExamPostRequest
 import com.lucasaquiles.resource.requestVO.QuizPostRequest
 import io.micronaut.context.ApplicationContext
 import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
@@ -26,7 +27,7 @@ class ExamResourceSpec : Spek( {
         val embeddedServer = ApplicationContext.run(EmbeddedServer::class.java)
         val client = HttpClient.create(embeddedServer.url)
 
-        it("create new exam"){
+        it("create new exam POST /exam"){
 
             val examPostRequest = ExamPostRequest(Date(), Date(), true, quizes = emptyArray())
 
@@ -37,7 +38,22 @@ class ExamResourceSpec : Spek( {
             assertEquals(HttpStatus.CREATED, response.status)
         }
 
-        it("get all exams"){
+        it("add quiz to exam POST /exam/{id}/exam"){
+
+            val examPostRequest = ExamPostRequest(Date(), Date(), true, quizes = emptyArray())
+            val req : HttpRequest<ExamPostRequest> = HttpRequest.POST("/exam", examPostRequest)
+            client.toBlocking().exchange<ExamPostRequest, Any>(req)
+
+            val alternative = QuizPostRequest("quiz #1", emptySet(), BigDecimal("3"))
+
+            var request: HttpRequest<QuizPostRequest> = HttpRequest.POST("/exam/1/quiz", alternative)
+
+            val response = client.toBlocking().exchange<QuizPostRequest, Any>(request)
+
+            assertEquals(HttpStatus.CREATED, response.status)
+        }
+
+        it("get all exams GET /exam"){
 
             var request: HttpRequest<List<Exam>> = HttpRequest.GET("/exam")
 
