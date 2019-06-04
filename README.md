@@ -6,7 +6,7 @@ Micronaut App using kotlin, Spek, JPA, Open API
 ```
 
 ```
-(http://localhost:8080
+http://localhost:8080/
 ```
 
 add exam
