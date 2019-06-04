@@ -13,7 +13,7 @@ open class ExamRepositoryImpl(
         @param: CurrentSession @field: PersistenceContext
         private val entityManager: EntityManager) : Repository<Exam> {
 
-    @Transactional(readOnly = true)
+    @Transactional
     override fun save(obj: Exam): Exam {
 
         entityManager.persist(obj);
@@ -21,6 +21,7 @@ open class ExamRepositoryImpl(
         return obj;
     }
 
+    @Transactional(readOnly = true)
     override fun findAll(): List<Exam> {
 
         return entityManager.createQuery("select e from Exam e").resultList as List<Exam>

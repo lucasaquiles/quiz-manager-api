@@ -1,5 +1,6 @@
 package com.lucasaquiles.resource
 
+import com.lucasaquiles.domain.Exam
 import com.lucasaquiles.repository.ExamRepositoryImpl
 import com.lucasaquiles.resource.requestVO.AlternativeRequest
 import com.lucasaquiles.resource.requestVO.ExamPostRequest
@@ -32,6 +33,15 @@ class ExamResourceSpec : Spek( {
             var request: HttpRequest<ExamPostRequest> = HttpRequest.POST("/exam", examPostRequest)
 
             val response = client.toBlocking().exchange<ExamPostRequest, Any>(request)
+
+            assertEquals(HttpStatus.OK, response.status)
+        }
+
+        it("get all exams"){
+
+            var request: HttpRequest<List<Exam>> = HttpRequest.GET("/exam")
+
+            val response = client.toBlocking().exchange<List<Exam>, Any>(request)
 
             assertEquals(HttpStatus.CREATED, response.status)
         }
