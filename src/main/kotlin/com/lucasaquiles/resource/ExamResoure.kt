@@ -7,10 +7,8 @@ import com.lucasaquiles.repository.QuizRepositoryImpl
 import com.lucasaquiles.resource.requestVO.ExamPostRequest
 import com.lucasaquiles.resource.requestVO.QuizPostRequest
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.MediaType
+import io.micronaut.http.annotation.*
 import io.micronaut.validation.Validated
 import org.jetbrains.annotations.NotNull
 import javax.validation.Valid
@@ -38,26 +36,24 @@ class ExamResoure (protected val examRepository: ExamRepositoryImpl, protected v
     }
 
     @Post("/")
+    @Produces(MediaType.APPLICATION_JSON)
     fun save(@Body exam:ExamPostRequest) : HttpResponse<ExamPostRequest>{
 
         val examObj = Exam(0, ArrayList(), exam.date, exam.validDat, exam.active)
 
-        examRepository.save(examObj)
+        val saved = examRepository.save(examObj)
 
-        return HttpResponse.created(exam)
+        return HttpResponse.created(ExamPostRequest(saved.date, saved.validDate, saved.active, emptyArray()))
     }
 
     @Post("/{id}/quiz")
+    @Produces(MediaType.APPLICATION_JSON)
     fun addAlternative(@NotNull id: Long, @Body @Valid quizRequest: QuizPostRequest) : HttpResponse<QuizPostRequest> {
 
         val exam = examRepository.findById(id)
         val quiz = Quiz(quizRequest.title, quizRequest.minScore, exam!!)
 
-        quizRepositoryImpl.save(quiz);
-
-        exam.quizes.add(quiz)
-
-        examRepository.save(exam)
+        quizRepositoryImpl.update(quiz)
 
         return HttpResponse.created(quizRequest)
     }

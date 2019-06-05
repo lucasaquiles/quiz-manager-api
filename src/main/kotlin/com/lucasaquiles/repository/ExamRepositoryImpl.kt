@@ -16,9 +16,20 @@ open class ExamRepositoryImpl(
     @Transactional
     override fun save(obj: Exam): Exam {
 
-        entityManager.persist(obj);
+        entityManager.persist(obj)
 
         return obj;
+    }
+
+    @Transactional
+    override fun update(obj: Exam) :Exam {
+
+        entityManager.createQuery("UPDATE Exam e SET  quizes = :quizes  where id = :id")
+                .setParameter("quizes", obj.quizes)
+                .setParameter("id", obj.id)
+                .executeUpdate()
+
+        return obj
     }
 
     @Transactional(readOnly = true)

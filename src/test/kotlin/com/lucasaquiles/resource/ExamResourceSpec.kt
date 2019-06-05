@@ -12,9 +12,11 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.runtime.server.EmbeddedServer
 import org.spekframework.spek2.Spek
+import org.spekframework.spek2.dsl.Skip
 import org.spekframework.spek2.style.specification.describe
 import java.math.BigDecimal
 import java.util.*
+import javax.validation.valueextraction.Unwrapping
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 import kotlin.test.assertEquals
@@ -43,13 +45,11 @@ class ExamResourceSpec : Spek( {
             val examPostRequest = ExamPostRequest(Date(), Date(), true, emptyArray())
             val req : HttpRequest<ExamPostRequest> = HttpRequest.POST("/exam", examPostRequest)
 
-            val examResponse = client.toBlocking().exchange<ExamPostRequest, Any>(req)
+            val examResponse: HttpResponse<Any> = client.toBlocking().exchange(req)
 
             val alternative = QuizPostRequest("quiz #1", emptySet(), BigDecimal("3"))
-
             var request: HttpRequest<QuizPostRequest> = HttpRequest.POST("/exam/1/quiz", alternative)
-
-            val response = client.toBlocking().exchange<QuizPostRequest, Any>(request)
+            val response : HttpResponse<QuizPostRequest> =  client.toBlocking().exchange(request)
 
             assertEquals(HttpStatus.CREATED, response.status)
         }
