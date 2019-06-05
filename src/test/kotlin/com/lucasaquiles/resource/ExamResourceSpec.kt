@@ -38,11 +38,12 @@ class ExamResourceSpec : Spek( {
             assertEquals(HttpStatus.CREATED, response.status)
         }
 
-        it("add quiz to exam POST /exam/{id}/exam"){
+        it("add quiz to exam"){
 
-            val examPostRequest = ExamPostRequest(Date(), Date(), true, quizes = emptyArray())
+            val examPostRequest = ExamPostRequest(Date(), Date(), true, emptyArray())
             val req : HttpRequest<ExamPostRequest> = HttpRequest.POST("/exam", examPostRequest)
-            client.toBlocking().exchange<ExamPostRequest, Any>(req)
+
+            val examResponse = client.toBlocking().exchange<ExamPostRequest, Any>(req)
 
             val alternative = QuizPostRequest("quiz #1", emptySet(), BigDecimal("3"))
 

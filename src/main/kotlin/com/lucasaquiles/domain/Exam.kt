@@ -12,7 +12,7 @@ class Exam(
         val id: Long,
 
         @JsonIgnore
-        @OneToMany(mappedBy = "exam")
+        @OneToMany(mappedBy = "exam", fetch = FetchType.EAGER)
         val quizes: MutableList<Quiz>,
         val date: Date,
         val validDate: Date,

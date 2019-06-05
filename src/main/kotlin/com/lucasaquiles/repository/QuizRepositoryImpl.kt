@@ -12,12 +12,13 @@ open class QuizRepositoryImpl(
         @param: CurrentSession @field: PersistenceContext
         private val entityManager: EntityManager) : Repository<Quiz> {
 
+    @Transactional(readOnly = true)
     override fun findById(id: Long): Quiz? {
 
         return entityManager.find(Quiz::class.java, id)
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     override fun save(obj: Quiz): Quiz {
         entityManager.persist(obj)
         return obj;

@@ -27,6 +27,7 @@ open class ExamRepositoryImpl(
         return entityManager.createQuery("select e from Exam e").resultList as List<Exam>
     }
 
+    @Transactional(readOnly= true)
     override fun findById(id: Long): Exam? {
 
         return entityManager.find(Exam::class.java, id)

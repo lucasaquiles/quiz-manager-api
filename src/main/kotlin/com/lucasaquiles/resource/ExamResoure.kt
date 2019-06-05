@@ -3,6 +3,7 @@ package com.lucasaquiles.resource
 import com.lucasaquiles.domain.Exam
 import com.lucasaquiles.domain.Quiz
 import com.lucasaquiles.repository.ExamRepositoryImpl
+import com.lucasaquiles.repository.QuizRepositoryImpl
 import com.lucasaquiles.resource.requestVO.ExamPostRequest
 import com.lucasaquiles.resource.requestVO.QuizPostRequest
 import io.micronaut.http.HttpResponse
@@ -14,9 +15,10 @@ import io.micronaut.validation.Validated
 import org.jetbrains.annotations.NotNull
 import javax.validation.Valid
 
+
 @Validated
 @Controller("/exam")
-class ExamResoure (protected val examRepository: ExamRepositoryImpl) {
+class ExamResoure (protected val examRepository: ExamRepositoryImpl, protected val quizRepositoryImpl: QuizRepositoryImpl) {
 
 
     @Get("/")
@@ -30,7 +32,7 @@ class ExamResoure (protected val examRepository: ExamRepositoryImpl) {
 
         val exam = examRepository.findById(id)
 
-        val examPostRequest = ExamPostRequest(exam!!.date, exam!!.validDate, exam!!.active, exam!!.quizes as Array<QuizPostRequest>)
+        val examPostRequest = ExamPostRequest(exam!!.date, exam!!.validDate, exam!!.active, emptyArray())
 
         return HttpResponse.created(examPostRequest)
     }
@@ -40,16 +42,18 @@ class ExamResoure (protected val examRepository: ExamRepositoryImpl) {
 
         val examObj = Exam(0, ArrayList(), exam.date, exam.validDat, exam.active)
 
-        examRepository.save(examObj);
+        examRepository.save(examObj)
 
-        return HttpResponse.created(exam);
+        return HttpResponse.created(exam)
     }
 
-    @Post("/exam/{id}/quiz")
+    @Post("/{id}/quiz")
     fun addAlternative(@NotNull id: Long, @Body @Valid quizRequest: QuizPostRequest) : HttpResponse<QuizPostRequest> {
 
         val exam = examRepository.findById(id)
         val quiz = Quiz(quizRequest.title, quizRequest.minScore, exam!!)
+
+        quizRepositoryImpl.save(quiz);
 
         exam.quizes.add(quiz)
 
