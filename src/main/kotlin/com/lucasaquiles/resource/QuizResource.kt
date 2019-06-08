@@ -13,6 +13,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.validation.Validated
 import org.jetbrains.annotations.NotNull
+import java.net.URI
 import java.util.*
 import javax.validation.Valid
 import kotlin.collections.ArrayList
@@ -22,16 +23,19 @@ import kotlin.collections.ArrayList
 class QuizResource(protected val quizRepository: Repository<Quiz>){
 
 
-    @Get
+    @Get("/")
     fun get(id: Long): Quiz? = quizRepository.findById(id)
 
     @Post("/")
     fun save(@Body @Valid quizRequest: QuizPostRequest) : HttpResponse<Quiz>{
 
         val exam = Exam(0, ArrayList(), Date(), Date(), true)
-        val quiz = Quiz(quizRequest.title ,  quizRequest.minScore, exam)
 
-        return HttpResponse.created(quizRepository.save(quiz))
+        val quiz = quizRepository.save(Quiz(quizRequest.title ,  quizRequest.minScore, exam))
+
+        return HttpResponse.created(quiz).headers{ headers->
+            headers.location(URI.create("/quiz/${quiz.id}"))
+        }
     }
 
     @Post("/quiz/{id}/alternative")
