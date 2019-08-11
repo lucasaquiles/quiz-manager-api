@@ -1,6 +1,12 @@
 Micronaut App using kotlin, Spek, JPA, Open API
  
 
+init consult via docker
+
+```
+docker run -p 8500:8500 consul
+```
+
 ```
 ./gradlew run
 ```
