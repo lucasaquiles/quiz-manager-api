@@ -14,7 +14,7 @@ class Exam(
         @JsonIgnore
         @OneToMany(mappedBy = "exam", fetch = FetchType.EAGER)
         val quizes: MutableList<Quiz>,
-        val date: Date,
-        val validDate: Date,
+        val endEt: Date,
+        val startAt: Date,
         val active: Boolean
 )

@@ -1,6 +1,8 @@
 micronaut:
     application:
         name: quiz-manager-api
+    server:
+        port: 8030
     router:
         static-resources:
             swagger:
@@ -22,3 +24,9 @@ datasources:
         username: ${JDBC_USER:sa}
         password: ${JDBC_PASSWORD:""}
         driverClassName: ${JDBC_DRIVER:org.h2.Driver}
+
+consul:
+    client:
+        registration:
+            enabled: true
+        defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"

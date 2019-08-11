@@ -6,7 +6,6 @@ import com.lucasaquiles.repository.ExamRepositoryImpl
 import com.lucasaquiles.repository.QuizRepositoryImpl
 import com.lucasaquiles.resource.requestVO.ExamPostRequest
 import com.lucasaquiles.resource.requestVO.QuizPostRequest
-import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
@@ -32,7 +31,7 @@ class ExamResoure (protected val examRepository: ExamRepositoryImpl, protected v
 
         val exam = examRepository.findById(id)
 
-        val examPostRequest = ExamPostRequest(exam!!.date, exam!!.validDate, exam!!.active, emptyArray())
+        val examPostRequest = ExamPostRequest(exam!!.endEt, exam!!.startAt, exam!!.active, emptyArray())
 
         return HttpResponse.created(examPostRequest)
     }
