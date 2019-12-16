@@ -28,9 +28,8 @@ dependencyManagement {
 
 dependencies {
 
-    annotationProcessor "io.micronaut:micronaut-openapi"
-    annotationProcessor "io.micronaut.configuration:micronaut-openapi"
-    compile "io.swagger.core.v3:swagger-annotations"
+    kapt "io.micronaut.configuration:micronaut-openapi"
+    kapt "io.swagger.core.v3:swagger-annotations"
 
     runtime "io.micronaut:micronaut-discovery-client"
 
@@ -92,6 +91,12 @@ compileKotlin {
     }
 }
 
+
+tasks.withType(JavaCompile) {
+    options.fork = true
+    options.forkOptions.jvmArgs << '-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop'
+
+}
 
 
 compileTestKotlin {
